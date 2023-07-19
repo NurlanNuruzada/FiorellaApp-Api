@@ -11,8 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Configurations\" />
-    <Folder Include="Contexts\" />
     <Folder Include="Inplementations\Services\" />
     <Folder Include="Inplementations\Repositories\" />
   </ItemGroup>
