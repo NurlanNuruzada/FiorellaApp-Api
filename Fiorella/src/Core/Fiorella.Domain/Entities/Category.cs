@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Fiorella.Domain.Entities;
 
 public class Category : BaseEntity
