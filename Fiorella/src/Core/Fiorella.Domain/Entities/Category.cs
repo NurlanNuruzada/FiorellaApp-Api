@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fiorella.Domain.Entities
+
+namespace Fiorella.Domain.Entities;
+
+public class Category : BaseEntity
 {
-    internal class Categori
-    {
-    }
+	public string? Name { get; set; }
+	public string? Description { get; set; }
 }

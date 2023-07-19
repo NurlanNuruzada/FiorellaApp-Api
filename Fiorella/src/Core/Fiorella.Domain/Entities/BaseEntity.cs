@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fiorella.Domain.Entities
+
+namespace Fiorella.Domain.Entities;
+
+public abstract class BaseEntity
 {
-    internal class BaseEntity
-    {
-    }
+	public Guid Id { get; set; }
 }
+
+
