@@ -20,7 +20,7 @@ public class ReadRepository<T> : IReadRepository<T> where T : BaseEntity, new()
         var query = Table.AsQueryable();
         foreach (var include in includes)
         {
-            query.Include(include);
+            query = query.Include(include);
         }
         return  IsTracking ? query : query.AsNoTracking();
     }
@@ -33,7 +33,7 @@ public class ReadRepository<T> : IReadRepository<T> where T : BaseEntity, new()
         var query = Table.Where(expression).Skip(Skip).Take(take).AsQueryable();
         foreach (var include in includes)
         {
-            query.Include(include);
+            query = query.Include(include);
         }
         return IsTracking ? query : query.AsNoTracking();
     }
@@ -51,7 +51,7 @@ public class ReadRepository<T> : IReadRepository<T> where T : BaseEntity, new()
         query = query.Skip(Skip).Take(take);
         foreach (var include in includes)
         {
-            query.Include(include);
+           query = query.Include(include);
         }
         return IsTracking ? query : query.AsNoTracking();
     }
