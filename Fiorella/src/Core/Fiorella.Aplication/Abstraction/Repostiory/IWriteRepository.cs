@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Fiorella.Aplication.Abstraction.Repostiory
 {
-    public interface IWriteRepository<T>:IRepository<T> where T : BaseEntity, new()
+    public interface IWriteRepository<T> : IRepository<T> where T : BaseEntity, new()
     {
         Task addAsync(T entity);
         Task addRangeAsync(ICollection<T> enitites);
         void update(T entity);
         void remove(T entity);
-         void removeRange(ICollection<T> enitites);
+        void removeRange(ICollection<T> enitites);
         Task SaveChangesAsync();
     }
 }
