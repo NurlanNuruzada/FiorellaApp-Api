@@ -9,8 +9,8 @@ namespace Fiorella.Aplication.Abstraction.Services
 {
     public interface ICategoryService
     {
-        Task CreateAsync(CategoryCreateDto categoryCreateDto);
-        Task<CategoryGetDto> DetById(int id);
+        Task CreateAsync(CategoryGetDto categoryCreateDto);
+        Task<CategoryGetDto> GetByIdAsync(int id);
         Task<List<CategoryGetDto>> GetAllAsync();
         //Task UpdateAsync(CategoryUpdateDto categoryUpdateDto);
     }

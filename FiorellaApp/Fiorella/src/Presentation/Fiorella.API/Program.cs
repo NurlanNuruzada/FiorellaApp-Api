@@ -16,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
-builder.Services.AddValidatorsFromAssemblyContaining(typeof(CategoryCreateDtoValudator));
+builder.Services.AddValidatorsFromAssemblyContaining<CategoryCreateDtoValudator>();
 builder.Services.AddAutoMapper(typeof(CategoryProfile).Assembly);
 builder.Services.AddDbContext<AppDbContext>(options =>
 {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Fiorella.Aplication.Validators.CategoryValudators
 {
-    public class CategoryCreateDtoValudator : AbstractValidator<CategoryCreateDto>
+    public class CategoryCreateDtoValudator : AbstractValidator<CategoryGetDto>
     {
         public CategoryCreateDtoValudator()
         {
