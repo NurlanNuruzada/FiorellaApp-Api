@@ -1,5 +1,4 @@
 ﻿namespace Fiorella.Aplication.DTOs.ResponseDTOs;
-
 public class ExceptionResponseDto
 {
     public int StatusCode { get; set; }
@@ -8,5 +7,4 @@ public class ExceptionResponseDto
     {
         StatusCode = statusCode;
         CustomMessage = customMessage;
-    }
 }

@@ -1,5 +1,5 @@
 ﻿using Fiorella.Aplication.Abstraction.Services;
-using Fiorella.Aplication.DTOs;
+using Fiorella.Aplication.DTOs.CategoryDTOs;
 using Fiorella.Domain.Entities;
 using Fiorella.Persistence.Exceptions;
 using Fiorella.Persistence.Inplementations.Services;
@@ -21,10 +21,12 @@ namespace Fiorella.API.Controllers
         }
 
         [HttpGet("id")]
-        public async Task<IActionResult>get(int id)
+        public async Task<IActionResult> get(int id)
         {
-                var category = await _categoryService.getById(id);
-                return Ok(category);
+
+            var category = await _categoryService.getById(id);
+            return Ok(category);
+
         }
         [HttpPost]
         public async Task<IActionResult> Post(CategoryCreateDto categoryCreateDto)

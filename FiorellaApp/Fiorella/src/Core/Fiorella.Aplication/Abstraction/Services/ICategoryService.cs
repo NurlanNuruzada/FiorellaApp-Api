@@ -1,4 +1,4 @@
-﻿using Fiorella.Aplication.DTOs;
+﻿using Fiorella.Aplication.DTOs.CategoryDTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

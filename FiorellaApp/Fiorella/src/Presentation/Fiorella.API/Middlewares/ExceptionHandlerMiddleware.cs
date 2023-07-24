@@ -4,35 +4,32 @@ using Microsoft.AspNetCore.Diagnostics;
 using Newtonsoft.Json;
 using System.Net;
 
-namespace Fiorella.API.Middlewares
+namespace Fiorella.API.Middlewares;
+public static class ExceptionHandlerMiddleware
 {
-    public static class ExceptionHandlerMiddleware
+    public static IApplicationBuilder UseCustomExceptionHandler(this IApplicationBuilder app)
     {
-        public static IApplicationBuilder UseCustomExceptionBuilder(this IApplicationBuilder app)
+        app.UseExceptionHandler(errorApp =>
         {
-            app.UseExceptionHandler(errorApp =>
+            errorApp.Run(async context =>
             {
-                errorApp.Run(async context =>
-                {
-                    var contextFeature= context.Features.Get<IExceptionHandlerFeature>();
-                    int statusCode = (int)HttpStatusCode.InternalServerError;
-                    string message = "Internal Server Error";
+                var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+                var statusCode = (int)HttpStatusCode.InternalServerError;
+                string message = "Internal server error";
 
-                    if (contextFeature != null)
+                if (contextFeature is not null)
+                {
+                    if (contextFeature.Error is IBaseException)
                     {
-                        if (contextFeature.Error is IBaseException )
-                        {
-                            var exception=(IBaseException)contextFeature.Error;
-                            statusCode = exception.StatusCode;
-                            message = exception.CustomMessage;
-                        }
+                        var exception = (IBaseException)contextFeature.Error;
+                        statusCode = exception.StatusCode;
+                        message = exception.CustomMessage;
                     }
-                    context.Response.StatusCode = statusCode;
-                    await context.Response.WriteAsJsonAsync(new ExceptionResponseDto(statusCode,message));
-                    await context.Response.CompleteAsync();
-                });
+                }
+                context.Response.StatusCode = statusCode;
+                await context.Response.WriteAsJsonAsync(new ExceptionResponseDto(statusCode, message));
             });
-            return app;
-        }
+        });
+        return app;
     }
 }

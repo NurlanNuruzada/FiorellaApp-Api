@@ -10,11 +10,11 @@ namespace Fiorella.Persistence.Inplementations.Repositories;
 public class ReadRepository<T> : IReadRepository<T> where T : BaseEntity, new()
 {
     public readonly AppDbContext _context;
-    public DbSet<T> Table => _context.Set<T>(); 
     public ReadRepository(AppDbContext context)
     {
         _context = context;
     }
+    public DbSet<T> Table => _context.Set<T>(); 
     public IQueryable<T> GetAll(bool IsTracking = true, params string[] includes)
     {
         var query = Table.AsQueryable();
