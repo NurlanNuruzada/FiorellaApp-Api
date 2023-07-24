@@ -23,21 +23,22 @@ namespace Fiorella.API.Controllers
         [HttpGet("id")]
         public async Task<IActionResult> get(int id)
         {
+
             var category = await _categoryService.getById(id);
             return Ok(category);
+
         }
         [HttpPost]
         public async Task<IActionResult> Post(CategoryCreateDto categoryCreateDto)
         {
-
-            await _categoryService.CreateAsync(categoryCreateDto);
-            return StatusCode((int)HttpStatusCode.Created);
+                await _categoryService.CreateAsync(categoryCreateDto);
+                return StatusCode((int)HttpStatusCode.Created);
         }
         [HttpGet]
         public async Task<IActionResult> getAll()
         {
-            List<CategoryGetDto> List = await _categoryService.GetAllAsync();
-            return Ok(List);
+                List<CategoryGetDto> List = await _categoryService.GetAllAsync();
+                return Ok(List);
         }
     }
 }

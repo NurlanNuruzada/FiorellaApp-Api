@@ -1,5 +1,16 @@
 using Fiorella.API.Middlewares;
 using Fiorella.Persistence;
+using Fiorella.Aplication.Abstraction.Repostiory;
+using Fiorella.Aplication.Abstraction.Services;
+using Fiorella.Aplication.Validators.CategoryValudators;
+using Fiorella.Persistence.Contexts;
+using Fiorella.Persistence.Inplementations.Repositories;
+using Fiorella.Persistence.Inplementations.Services;
+using Fiorella.Persistence.MapperProfile;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -17,6 +28,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCustomExceptionBuilder();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
