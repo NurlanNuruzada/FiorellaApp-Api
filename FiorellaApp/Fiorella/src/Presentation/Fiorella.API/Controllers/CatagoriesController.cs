@@ -23,49 +23,20 @@ namespace Fiorella.API.Controllers
         [HttpGet("id")]
         public async Task<IActionResult>get(int id)
         {
-            try
-            {
                 var category = await _categoryService.getById(id);
                 return Ok(category);
-            }
-            catch (DublicatedException ex)
-            {
-                return StatusCode(ex.StatusCode, ex.Message);
-            }
-            catch (NotFoundException ex)
-            {
-                return StatusCode(ex.StatusCode, ex.Message);
-            }
         }
         [HttpPost]
         public async Task<IActionResult> Post(CategoryCreateDto categoryCreateDto)
         {
-            try
-            { 
                 await _categoryService.CreateAsync(categoryCreateDto);
                 return StatusCode((int)HttpStatusCode.Created);
-            }
-            catch (DublicatedException ex)
-            {
-                return StatusCode(ex.StatusCode, ex.Message);
-            }
-            catch(Exception ex)
-            {
-                return StatusCode((int)HttpStatusCode.InternalServerError , ex.Message);
-            }
         }
         [HttpGet]
         public async Task<IActionResult> getAll()
         {
-            try
-            {
                 List<CategoryGetDto> List = await _categoryService.GetAllAsync();
                 return Ok(List);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
-            }
         }
     }
 }
