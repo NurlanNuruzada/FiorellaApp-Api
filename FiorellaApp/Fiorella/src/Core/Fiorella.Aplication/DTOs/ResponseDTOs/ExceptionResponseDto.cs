@@ -7,4 +7,5 @@ public class ExceptionResponseDto
     {
         StatusCode = statusCode;
         CustomMessage = customMessage;
+    }
 }
