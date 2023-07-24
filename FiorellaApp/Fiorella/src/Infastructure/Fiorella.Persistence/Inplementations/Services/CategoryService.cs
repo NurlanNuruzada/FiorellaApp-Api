@@ -36,7 +36,7 @@ public class CategoryService : ICategoryService
         await _writeRepository.SaveChangesAsync();
     }
 
-    public async Task<CategoryGetDto> getById(int id)
+    public async Task<CategoryGetDto> GetByIdAsync(int id)
     {
         Category? category = await _readRepository.GetByIdAsync(id);
         CategoryGetDto categoryGetDto = _mapper.Map<CategoryGetDto>(category);

@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace Fiorella.Aplication.DTOs
 {
-    public record CategoryGetDto(string description,string Name);
+    public record CategoryGetDto(int id,string name,string description);
 }

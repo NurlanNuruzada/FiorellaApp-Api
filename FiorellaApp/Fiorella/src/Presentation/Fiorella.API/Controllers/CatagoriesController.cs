@@ -21,11 +21,11 @@ namespace Fiorella.API.Controllers
         }
 
         [HttpGet("id")]
-        public async Task<IActionResult>get(int id)
+        public async Task<IActionResult>Get(int id)
         {
             try
             {
-                var category = await _categoryService.getById(id);
+                var category = await _categoryService.GetByIdAsync(id);
                 return Ok(category);
             }
             catch (DublicatedException ex)
@@ -55,7 +55,7 @@ namespace Fiorella.API.Controllers
             }
         }
         [HttpGet]
-        public async Task<IActionResult> getAll()
+        public async Task<IActionResult> GetAll()
         {
             try
             {
