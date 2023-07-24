@@ -1,5 +1,5 @@
 ﻿using Fiorella.Aplication.Abstraction.Services;
-using Fiorella.Aplication.DTOs;
+using Fiorella.Aplication.DTOs.CategoryDTOs;
 using Fiorella.Domain.Entities;
 using Fiorella.Persistence.Exceptions;
 using Fiorella.Persistence.Inplementations.Services;
@@ -21,51 +21,23 @@ namespace Fiorella.API.Controllers
         }
 
         [HttpGet("id")]
-        public async Task<IActionResult>get(int id)
+        public async Task<IActionResult> get(int id)
         {
-            try
-            {
-                var category = await _categoryService.getById(id);
-                return Ok(category);
-            }
-            catch (DublicatedException ex)
-            {
-                return StatusCode(ex.StatusCode, ex.Message);
-            }
-            catch (NotFoundException ex)
-            {
-                return StatusCode(ex.StatusCode, ex.Message);
-            }
+            var category = await _categoryService.getById(id);
+            return Ok(category);
         }
         [HttpPost]
         public async Task<IActionResult> Post(CategoryCreateDto categoryCreateDto)
         {
-            try
-            { 
-                await _categoryService.CreateAsync(categoryCreateDto);
-                return StatusCode((int)HttpStatusCode.Created);
-            }
-            catch (DublicatedException ex)
-            {
-                return StatusCode(ex.StatusCode, ex.Message);
-            }
-            catch(Exception ex)
-            {
-                return StatusCode((int)HttpStatusCode.InternalServerError , ex.Message);
-            }
+
+            await _categoryService.CreateAsync(categoryCreateDto);
+            return StatusCode((int)HttpStatusCode.Created);
         }
         [HttpGet]
         public async Task<IActionResult> getAll()
         {
-            try
-            {
-                List<CategoryGetDto> List = await _categoryService.GetAllAsync();
-                return Ok(List);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
-            }
+            List<CategoryGetDto> List = await _categoryService.GetAllAsync();
+            return Ok(List);
         }
     }
 }

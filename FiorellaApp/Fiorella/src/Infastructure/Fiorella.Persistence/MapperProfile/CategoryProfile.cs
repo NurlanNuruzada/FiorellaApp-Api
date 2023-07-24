@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Fiorella.Aplication.DTOs;
+using Fiorella.Aplication.DTOs.CategoryDTOs;
 using Fiorella.Domain.Entities;
 
 namespace Fiorella.Persistence.MapperProfile;

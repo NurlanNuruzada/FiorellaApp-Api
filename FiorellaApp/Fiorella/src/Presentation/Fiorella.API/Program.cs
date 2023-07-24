@@ -1,3 +1,4 @@
+using Fiorella.API.Middlewares;
 using Fiorella.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +9,7 @@ builder.Services.AddPersistanceServices();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
-
+app.UseCustomExceptionHandler();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

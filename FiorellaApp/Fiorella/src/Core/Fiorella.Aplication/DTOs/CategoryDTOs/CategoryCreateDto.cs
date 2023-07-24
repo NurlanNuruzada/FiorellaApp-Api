@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fiorella.Aplication.DTOs
+namespace Fiorella.Aplication.DTOs.CategoryDTOs
 {
-    public record CategoryGetDto(string description,string Name);
+    public record CategoryCreateDto(string name, string? description);
 }

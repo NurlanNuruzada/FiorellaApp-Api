@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Fiorella.Aplication.Abstraction.Repostiory;
 using Fiorella.Aplication.Abstraction.Services;
-using Fiorella.Aplication.DTOs;
+using Fiorella.Aplication.DTOs.CategoryDTOs;
 using Fiorella.Domain.Entities;
 using Fiorella.Persistence.Exceptions;
 using Microsoft.EntityFrameworkCore;
