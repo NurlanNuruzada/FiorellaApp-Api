@@ -1,7 +1,6 @@
 ﻿using Fiorella.Aplication.Abstraction.Repostiory;
 using Fiorella.Aplication.Abstraction.Services;
 using Fiorella.Aplication.Validators.CategoryValudators;
-using Fiorella.Domain.Entities;
 using Fiorella.Persistence.Contexts;
 using Fiorella.Persistence.Helpers;
 using Fiorella.Persistence.Inplementations.Repositories;
@@ -9,7 +8,6 @@ using Fiorella.Persistence.Inplementations.Services;
 using Fiorella.Persistence.MapperProfile;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,10 +20,6 @@ public static class ServiceRegistration
         {
             options.UseSqlServer(Configuration.ConnetionString);
         });
-
-        services.AddIdentity<AppUser, IdentityRole>()
-                .AddDefaultTokenProviders()
-                .AddEntityFrameworkStores<AppDbContext>();
 
         services.AddFluentValidationAutoValidation();
         services.AddFluentValidationClientsideAdapters();
