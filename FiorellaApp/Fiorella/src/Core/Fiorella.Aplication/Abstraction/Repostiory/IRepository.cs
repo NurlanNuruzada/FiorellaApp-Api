@@ -1,4 +1,4 @@
-﻿using Fiorella.Domain.Entities;
+﻿using Fiorella.Domain.Entities.Common;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
