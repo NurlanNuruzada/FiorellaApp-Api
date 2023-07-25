@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Fiorella.Aplication.Abstraction.Repostiory;
 using Fiorella.Aplication.Abstraction.Services;
-using Fiorella.Aplication.DTOs;
+using Fiorella.Aplication.DTOs.CategoryDTOs;
 using Fiorella.Domain.Entities;
 using Fiorella.Persistence.Exceptions;
 using Microsoft.EntityFrameworkCore;
@@ -36,7 +36,7 @@ public class CategoryService : ICategoryService
         await _writeRepository.SaveChangesAsync();
     }
 
-    public async Task<CategoryGetDto> GetByIdAsync(int id)
+    public async Task<CategoryGetDto> getById(int id)
     {
         Category? category = await _readRepository.GetByIdAsync(id);
         CategoryGetDto categoryGetDto = _mapper.Map<CategoryGetDto>(category);

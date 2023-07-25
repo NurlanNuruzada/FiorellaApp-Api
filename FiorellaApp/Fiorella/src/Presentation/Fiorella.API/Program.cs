@@ -1,3 +1,5 @@
+using Fiorella.API.Middlewares;
+using Fiorella.Persistence;
 using Fiorella.Aplication.Abstraction.Repostiory;
 using Fiorella.Aplication.Abstraction.Services;
 using Fiorella.Aplication.Validators.CategoryValudators;
@@ -9,28 +11,16 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
+
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
-
 builder.Services.AddControllers();
-builder.Services.AddFluentValidationAutoValidation();
-builder.Services.AddFluentValidationClientsideAdapters();
-builder.Services.AddValidatorsFromAssemblyContaining<CategoryCreateDtoValudator>();
-builder.Services.AddAutoMapper(typeof(CategoryProfile).Assembly);
-builder.Services.AddDbContext<AppDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
-});
-builder.Services.AddScoped<ICategoryReadRepository, CategoryReadRepository>();
-builder.Services.AddScoped<ICategoryWriteRepository, CategoryWriteRepository>();
+builder.Services.AddPersistanceServices();
 
-builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
+app.UseCustomExceptionHandler();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -38,9 +28,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

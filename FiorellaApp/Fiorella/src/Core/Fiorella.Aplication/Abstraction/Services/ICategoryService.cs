@@ -1,4 +1,4 @@
-﻿using Fiorella.Aplication.DTOs;
+﻿using Fiorella.Aplication.DTOs.CategoryDTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace Fiorella.Aplication.Abstraction.Services
     public interface ICategoryService
     {
         Task CreateAsync(CategoryCreateDto categoryCreateDto);
-        Task<CategoryGetDto> GetByIdAsync(int id);
+        Task<CategoryGetDto> getById(int id);
         Task<List<CategoryGetDto>> GetAllAsync();
         //Task UpdateAsync(CategoryUpdateDto categoryUpdateDto);
     }

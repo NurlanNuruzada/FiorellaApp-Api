@@ -1,4 +1,6 @@
-﻿namespace Fiorella.Domain.Entities;
+﻿using Fiorella.Domain.Entities.Common;
+
+namespace Fiorella.Domain.Entities;
 
 public class Category : BaseEntity
 {

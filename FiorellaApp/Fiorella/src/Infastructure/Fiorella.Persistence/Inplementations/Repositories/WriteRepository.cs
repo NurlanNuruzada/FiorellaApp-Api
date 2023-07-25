@@ -1,5 +1,5 @@
 ﻿using Fiorella.Aplication.Abstraction.Repostiory;
-using Fiorella.Domain.Entities;
+using Fiorella.Domain.Entities.Common;
 using Fiorella.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 
