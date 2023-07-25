@@ -13,18 +13,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastrucrture", "Infrastr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{67B833D9-C38F-4933-88F5-E5FD6959CA06}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiorella.Domain", "src\Core\Fiorella.Domain\Fiorella.Domain.csproj", "{658F8FDD-3D49-497B-B24D-7362ABEAD280}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiorella.Domain", "src\Core\Fiorella.Domain\Fiorella.Domain.csproj", "{658F8FDD-3D49-497B-B24D-7362ABEAD280}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiorella.Persistence", "src\Infastructure\Fiorella.Persistence\Fiorella.Persistence.csproj", "{46690613-F052-4D9D-A9C6-BE59FB2F7AED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiorella.Persistence", "src\Infastructure\Fiorella.Persistence\Fiorella.Persistence.csproj", "{46690613-F052-4D9D-A9C6-BE59FB2F7AED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiorella.API", "src\Presentation\Fiorella.API\Fiorella.API.csproj", "{62338D4F-6AC7-473E-B764-36A9F755A4B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiorella.API", "src\Presentation\Fiorella.API\Fiorella.API.csproj", "{62338D4F-6AC7-473E-B764-36A9F755A4B4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiorella.Aplication", "src\Core\Fiorella.Aplication\Fiorella.Aplication.csproj", "{D893B226-8CD7-4223-84A8-8E34128BBFF6}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9878BFB2-E6F6-463F-99FC-BA1B5D921C04}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiorella.Aplication", "src\Core\Fiorella.Aplication\Fiorella.Aplication.csproj", "{D893B226-8CD7-4223-84A8-8E34128BBFF6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
