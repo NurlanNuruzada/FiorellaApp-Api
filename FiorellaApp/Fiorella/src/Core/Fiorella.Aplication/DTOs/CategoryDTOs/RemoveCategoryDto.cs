@@ -4,14 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fiorella.Domain.Enums
+namespace Fiorella.Aplication.DTOs.CategoryDTOs
 {
-	public enum Role
-	{
-		Member,
-		Admin,
-		SuperAdmin
-		
-
-	}
+    public record class RemoveCategoryDto(string description, string Name);
 }
