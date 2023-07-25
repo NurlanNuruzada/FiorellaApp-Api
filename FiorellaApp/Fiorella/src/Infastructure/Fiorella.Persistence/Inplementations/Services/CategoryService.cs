@@ -36,7 +36,7 @@ public class CategoryService : ICategoryService
         await _writeRepository.SaveChangesAsync();
     }
 
-    public async Task<CategoryGetDto> getById(int id)
+    public async Task<CategoryGetDto> getById(Guid id)
     {
         Category? category = await _readRepository.GetByIdAsync(id);
         CategoryGetDto categoryGetDto = _mapper.Map<CategoryGetDto>(category);
@@ -54,5 +54,17 @@ public class CategoryService : ICategoryService
         var categories = await _readRepository.GetAll().ToListAsync();
         List<CategoryGetDto> List = _mapper.Map<List<CategoryGetDto>>(categories);
         return List;
+    }
+
+    public async Task Remove(Guid id) 
+    {
+        Category? foundCategory = await _readRepository.GetByIdAsync(id);
+        if (foundCategory is null)
+        {
+            throw new NotFoundException("Not found!!!");
+        }
+
+        _writeRepository.remove(foundCategory);
+        await _writeRepository.SaveChangesAsync();
     }
 }
