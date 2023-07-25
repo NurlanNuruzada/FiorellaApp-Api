@@ -58,13 +58,24 @@ public class CategoryService : ICategoryService
 
     public async Task Remove(Guid id) 
     {
-        Category? foundCategory = await _readRepository.GetByIdAsync(id);
+        Category foundCategory = await _readRepository.GetByIdAsync(id);
         if (foundCategory is null)
         {
             throw new NotFoundException("Not found!!!");
         }
-
         _writeRepository.remove(foundCategory);
         await _writeRepository.SaveChangesAsync();
+    }
+    public async Task UpdateAsync(CategoryUpdateDto categoryUpdateDto,Guid Id)
+    {
+        var category = await _readRepository.GetByIdAsync(Id);
+        if (category is null)
+        {
+            throw new NotFoundException("Not found!!!");
+        }
+        _mapper.Map(categoryUpdateDto, category);
+        await _writeRepository.SaveChangesAsync();
+        //DateTime dateTime = DateTime.Now;
+        //category.DateModified = dateTime;
     }
 }
