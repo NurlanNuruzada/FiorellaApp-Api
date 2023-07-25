@@ -21,12 +21,18 @@ namespace Fiorella.API.Controllers
         }
 
         [HttpGet("id")]
-        public async Task<IActionResult> get(int id)
+        public async Task<IActionResult> get(Guid id)
         {
 
             var category = await _categoryService.getById(id);
             return Ok(category);
 
+        }
+        [HttpGet("id")]
+        public async Task<IActionResult> delete(Guid id)
+        {
+            var category = _categoryService.Remove(id);
+            return Ok(new { message = "Category deleted successfully." });
         }
         [HttpPost]
         public async Task<IActionResult> Post(CategoryCreateDto categoryCreateDto)
@@ -40,5 +46,6 @@ namespace Fiorella.API.Controllers
                 List<CategoryGetDto> List = await _categoryService.GetAllAsync();
                 return Ok(List);
         }
+        
     }
 }
