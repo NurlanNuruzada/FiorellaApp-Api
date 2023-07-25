@@ -1,6 +1,7 @@
 ﻿using Fiorella.Domain.Entities;
 using Fiorella.Persistence.Configurations;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Fiorella.Persistence.Interseptors;
 using Microsoft.EntityFrameworkCore;
 
 namespace Fiorella.Persistence.Contexts;
@@ -15,6 +16,13 @@ public class AppDbContext :IdentityDbContext<AppUser>
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(CategoryConfiguration).Assembly);
         base.OnModelCreating(modelBuilder);
+
+    }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        // Add the interceptor to the DbContext
+        optionsBuilder.AddInterceptors(new DateModifiedInterseptors());
+        base.OnConfiguring(optionsBuilder);
     }
     public DbSet<Category> Categories { get; set; } = null!;
     
