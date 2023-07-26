@@ -1,3 +1,4 @@
+
 ﻿using Fiorella.Domain.Entities;
 using Fiorella.Domain.Enums;
 using Fiorello.Application.Abstraction.Services;
@@ -10,9 +11,13 @@ using UnionArchitecture.Persistence.Exceptions;
 
 namespace Fiorello.Persistence.Implementations.Services;
 
+
 public class AuthService : IAuthService
 {
     private readonly UserManager<AppUser> _userManager;
+
+=======
+
     private readonly SignInManager<AppUser> _signInManager;
     private readonly RoleManager<IdentityUser> _roleManager;
     private readonly IJwtService _jwtService;
@@ -83,5 +88,6 @@ public class AuthService : IAuthService
         }
         TokenResponseDto tokenResponse = _jwtService.CreateJwtToken(120,appUser);
         return tokenResponse;
+
     }
 }
