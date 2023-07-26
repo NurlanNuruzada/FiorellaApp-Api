@@ -62,5 +62,5 @@ public class ReadRepository<T> : IReadRepository<T> where T : BaseEntity, new()
         var query = IsTracking ? Table.AsQueryable() : Table.AsNoTracking().AsQueryable();
         return await query.FirstOrDefaultAsync(expression);
     }
-    public async Task<T?> GetByIdAsync(int Id) => await Table.FindAsync(Id);
+    public async Task<T?> GetByIdAsync(Guid Id) => await Table.FindAsync(Id);
 }
