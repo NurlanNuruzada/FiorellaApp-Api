@@ -75,7 +75,5 @@ public class CategoryService : ICategoryService
         }
         _mapper.Map(categoryUpdateDto, category);
         await _writeRepository.SaveChangesAsync();
-        //DateTime dateTime = DateTime.Now;
-        //category.DateModified = dateTime;
     }
 }
