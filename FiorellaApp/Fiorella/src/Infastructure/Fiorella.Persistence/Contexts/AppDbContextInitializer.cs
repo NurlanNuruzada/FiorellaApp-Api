@@ -53,6 +53,6 @@ namespace Fiorella.Persistence.Contexts
             await _userManager.CreateAsync(appUser, _configuration["SuperAdminSettings:password"]);
             await _userManager.AddToRoleAsync(appUser, Role.SuperAdmin.ToString());
         }
-    }
 
+    }
 }

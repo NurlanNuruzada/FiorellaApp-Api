@@ -44,7 +44,10 @@ public static class ServiceRegistration
         services.AddReadARepositories();
         services.AddWriteARepositories();
 
+        //services
         services.AddScoped<ICategoryService, CategoryService>();
+        services.AddScoped<IAuthService, AuthService>();
+
     }
     private static void AddReadARepositories(this IServiceCollection services)
     {

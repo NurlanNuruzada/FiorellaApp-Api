@@ -55,7 +55,6 @@ public class CategoryService : ICategoryService
         List<CategoryGetDto> List = _mapper.Map<List<CategoryGetDto>>(categories);
         return List;
     }
-
     public async Task Remove(Guid id) 
     {
         Category foundCategory = await _readRepository.GetByIdAsync(id);
