@@ -1,7 +1,6 @@
 ﻿using Fiorella.Aplication.Abstraction.Repostiory;
 using Fiorella.Aplication.Abstraction.Services;
 using Fiorella.Aplication.Validators.CategoryValudators;
-using Fiorella.Domain.Entities;
 using Fiorella.Persistence.Contexts;
 using Fiorella.Persistence.Helpers;
 using Fiorella.Persistence.Inplementations.Repositories;
@@ -9,7 +8,6 @@ using Fiorella.Persistence.Inplementations.Services;
 using Fiorella.Persistence.MapperProfile;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,24 +21,12 @@ public static class ServiceRegistration
             options.UseSqlServer(Configuration.ConnetionString);
         });
 
-        services.AddIdentity<AppUser, IdentityRole>(options =>
-        {
-            options.User.RequireUniqueEmail = true;
-            options.Password.RequireNonAlphanumeric = true;
-            options.Password.RequiredLength = 8;
-            options.Password.RequireDigit = true;
-            options.Password.RequireUppercase = true;
-        })
-        .AddDefaultTokenProviders()
-        .AddEntityFrameworkStores<AppDbContext>();
-
-        // fluent valudation
         services.AddFluentValidationAutoValidation();
         services.AddFluentValidationClientsideAdapters();
         services.AddValidatorsFromAssemblyContaining(typeof(CategoryCreateDtoValudator));
         services.AddAutoMapper(typeof(CategoryProfile).Assembly);
 
-        //repositories
+
         services.AddReadARepositories();
         services.AddWriteARepositories();
 

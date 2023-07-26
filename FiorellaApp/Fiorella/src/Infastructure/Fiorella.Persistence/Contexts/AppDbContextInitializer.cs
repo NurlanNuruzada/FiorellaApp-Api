@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
+
 namespace Fiorella.Persistence.Contexts
 {
     public class AppDbContextInitializer
@@ -49,4 +50,3 @@ namespace Fiorella.Persistence.Contexts
             await _userManager.AddToRoleAsync(appUser, Role.SuperAdmin.ToString());
         }
     }
-}

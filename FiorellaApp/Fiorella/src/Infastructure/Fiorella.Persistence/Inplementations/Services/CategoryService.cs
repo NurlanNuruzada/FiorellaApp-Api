@@ -36,7 +36,7 @@ public class CategoryService : ICategoryService
         await _writeRepository.SaveChangesAsync();
     }
 
-    public async Task<CategoryGetDto> getById(Guid id)
+    public async Task<CategoryGetDto> getById(int id)
     {
         Category? category = await _readRepository.GetByIdAsync(id);
         CategoryGetDto categoryGetDto = _mapper.Map<CategoryGetDto>(category);
@@ -55,7 +55,6 @@ public class CategoryService : ICategoryService
         List<CategoryGetDto> List = _mapper.Map<List<CategoryGetDto>>(categories);
         return List;
     }
-
     public async Task Remove(Guid id) 
     {
         Category foundCategory = await _readRepository.GetByIdAsync(id);

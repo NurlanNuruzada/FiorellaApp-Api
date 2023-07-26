@@ -1,12 +1,11 @@
 ﻿using Fiorella.Domain.Entities;
 using Fiorella.Persistence.Configurations;
 using Fiorella.Persistence.Interseptors;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Fiorella.Persistence.Contexts;
 
-public class AppDbContext :IdentityDbContext<AppUser>
+public class AppDbContext :DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext>options):base(options)
     {
