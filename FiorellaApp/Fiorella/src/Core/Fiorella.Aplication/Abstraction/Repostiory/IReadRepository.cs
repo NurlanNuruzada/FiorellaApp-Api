@@ -19,7 +19,7 @@ namespace Fiorella.Aplication.Abstraction.Repostiory
                                               bool IsOrder = true,
                                               bool IsTracking = true,
                                               params string[] includes);
-        Task<T?> GetByIdAsync(Guid Id);
+        Task<T?> GetByIdAsync(int Id);
         Task<T?> GetByExpressionAsync(Expression<Func<T, bool>> expression, bool IsTracking = true);
     }
 }

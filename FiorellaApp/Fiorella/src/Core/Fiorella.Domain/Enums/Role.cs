@@ -1,7 +1,17 @@
-﻿namespace Fiorella.Domain.Enums;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public  enum Role
+namespace Fiorella.Domain.Enums
 {
-    Member,
-    Admin,
+	public enum Role
+	{
+		Member,
+		Admin,
+		SuperAdmin
+		
+
+	}
 }

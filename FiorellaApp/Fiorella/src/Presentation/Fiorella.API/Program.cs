@@ -10,19 +10,24 @@ using Fiorella.Persistence.MapperProfile;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
-using Fiorella.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
+
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddPersistanceServices();
-
-
+builder.Services.AddScoped<AppDbContextInitializer>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+	var instance = scope.ServiceProvider.GetRequiredService<AppDbContextInitializer>();
+	await instance.InitializeAsync();
+	await instance.RoleSeedAsync();
+	await instance.UserSeedAsync();
+}
 app.UseCustomExceptionHandler();
 if (app.Environment.IsDevelopment())
 {
