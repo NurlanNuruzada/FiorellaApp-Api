@@ -4,10 +4,24 @@ using Fiorella.Persistence.Contexts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Fiorella.Infrastucture;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
+builder.Services.AddLocalization();
+List<CultureInfo> cultures = new() {
+    new CultureInfo("es-ES"),
+    new CultureInfo("eN-US"),
+    new CultureInfo("ru-RU"),
+};
+RequestLocalizationOptions localizationOptions = new()
+{
+    ApplyCurrentCultureToResponseHeaders = true,
+    SupportedCultures = cultures,
+    SupportedUICultures = cultures
+};
+localizationOptions.SetDefaultCulture("en-US");
 builder.Services.AddPersistanceServices();
 builder.Services.AddInfrastuctureServices();
 builder.Services.AddScoped<AppDbContextInitializer>();
@@ -36,6 +50,9 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
+
+app.UseRequestLocalization(localizationOptions);
+
 
 using (var scope = app.Services.CreateScope())
 {
