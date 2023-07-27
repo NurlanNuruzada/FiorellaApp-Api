@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Infastructure\Fiorella.Persistence\Fiorella.Persistence.csproj" />
+    <ProjectReference Include="..\..\Infrastrucrture\Fiorella.Infrastucture\Fiorella.Infrastucture.csproj" />
   </ItemGroup>
 
 </Project>

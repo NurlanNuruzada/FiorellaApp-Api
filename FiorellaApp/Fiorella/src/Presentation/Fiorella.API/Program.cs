@@ -2,13 +2,14 @@ using Fiorella.API.Middlewares;
 using Fiorella.Persistence;
 using Fiorella.Persistence.Contexts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Fiorella.Infrastucture;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddPersistanceServices();
+builder.Services.AddInfrastuctureServices();
 builder.Services.AddScoped<AppDbContextInitializer>();
 
 builder.Services.AddAuthentication(options =>

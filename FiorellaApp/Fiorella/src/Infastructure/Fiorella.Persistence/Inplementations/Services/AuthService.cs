@@ -20,16 +20,19 @@ public class AuthService : IAuthService
     private readonly SignInManager<AppUser> _signInManager;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly IConfiguration _configuration;
+    private readonly ITokenHandler _tokekHandler;
 
     public AuthService(UserManager<AppUser> userManager,
                        SignInManager<AppUser> signInManager,
                        RoleManager<IdentityRole> roleManager,
-                       IConfiguration configuration)
+                       IConfiguration configuration,
+                       ITokenHandler tokekHandler)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _roleManager = roleManager;
         _configuration = configuration;
+        _tokekHandler = tokekHandler;
     }
 
     public async Task<TokenResponseDto> Login(SingInDto loginDto)
@@ -52,28 +55,8 @@ public class AuthService : IAuthService
         {
             throw new UserBlockedException("Your Accond Is Blocked!");
         }
-        List<Claim> claims = new()
-        {
-            new Claim(ClaimTypes.NameIdentifier,AppUser.Id),
-        };
-        var roles = await _userManager.GetRolesAsync(AppUser);
-        foreach (var role in roles)
-        {
-            claims.Add(new Claim(ClaimTypes.Role, role));
-        }
-        var SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:securityKey"]));
-        var Credentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256);
-        DateTime ExpireDate = DateTime.UtcNow.AddMinutes(120);
-        JwtSecurityToken jwt = new(
-             audience: _configuration["JWT:Audience"],
-             issuer: _configuration["JWT:Issuer"],
-             claims: claims,
-             notBefore: DateTime.UtcNow,
-             expires: ExpireDate,
-             signingCredentials: Credentials
-             );
-        var token = new JwtSecurityTokenHandler().WriteToken(jwt);
-        return new TokenResponseDto(token, DateTime.Now);
+       
+        return await _tokekHandler.CreateAccessToken(120,AppUser);
     }
 
     public async Task register(RegisterDto registerDto)
