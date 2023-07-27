@@ -3,9 +3,11 @@ using Fiorella.Aplication.DTOs.AuthDTOs;
 using Fiorella.Aplication.DTOs.ResponseDTOs;
 using Fiorella.Domain.Entities;
 using Fiorella.Domain.Enums;
+using Fiorella.Persistence.Contexts;
 using Fiorella.Persistence.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -18,24 +20,21 @@ public class AuthService : IAuthService
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly SignInManager<AppUser> _signInManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
-    private readonly IConfiguration _configuration;
     private readonly ITokenHandler _tokekHandler;
+    private readonly AppDbContext _appDbContext;
 
-    public AuthService(UserManager<AppUser> userManager,
-                       SignInManager<AppUser> signInManager,
-                       RoleManager<IdentityRole> roleManager,
-                       IConfiguration configuration,
-                       ITokenHandler tokekHandler)
-    {
-        _userManager = userManager;
-        _signInManager = signInManager;
-        _roleManager = roleManager;
-        _configuration = configuration;
-        _tokekHandler = tokekHandler;
-    }
+	public AuthService(UserManager<AppUser> userManager,
+					   SignInManager<AppUser> signInManager,
+					   ITokenHandler tokekHandler,
+					   AppDbContext appDbContext)
+	{
+		_userManager = userManager;
+		_signInManager = signInManager;
+		_tokekHandler = tokekHandler;
+		_appDbContext = appDbContext;
+	}
 
-    public async Task<TokenResponseDto> Login(SingInDto loginDto)
+	public async Task<TokenResponseDto> Login(SingInDto loginDto)
     {
         var AppUser = await _userManager.FindByEmailAsync(loginDto.UserOrEmail);
         if (AppUser is null)
@@ -56,7 +55,11 @@ public class AuthService : IAuthService
             throw new UserBlockedException("Your Accond Is Blocked!");
         }
        
-        return await _tokekHandler.CreateAccessToken(120,AppUser);
+        var tokenResponse = await _tokekHandler.CreateAccessToken(2,3,AppUser);
+        AppUser.RefreshToken = tokenResponse.refreshToken;
+        AppUser.RefreshTokenExpiration= tokenResponse.refreshTokenExpiration;
+        await _userManager.UpdateAsync(AppUser);
+        return tokenResponse;
     }
 
     public async Task register(RegisterDto registerDto)
@@ -89,4 +92,27 @@ public class AuthService : IAuthService
             throw new UserRegistrationException(error.ToString());
         }
     }
+
+	public async Task<TokenResponseDto> ValidateRefreshToken(string refreshToken)
+	{
+        if (refreshToken is null)
+        {
+            throw new ArgumentException("Refresh token does not exist");
+        }
+        AppUser user = await _appDbContext.Users.Where(u => u.RefreshToken == refreshToken).FirstOrDefaultAsync();
+        if (user == null)
+        {
+            throw new NotFoundException("User does not Exist");
+        }
+        if (user.RefreshTokenExpiration < DateTime.UtcNow)
+        {
+            throw new ArgumentException("Refresh Token does not exist");
+        }
+
+		var tokenResponse = await _tokekHandler.CreateAccessToken(2, 3, user);
+		user.RefreshToken = tokenResponse.refreshToken;
+		user.RefreshTokenExpiration = tokenResponse.refreshTokenExpiration;
+		await _userManager.UpdateAsync(user);
+		return tokenResponse;
+	}
 }
