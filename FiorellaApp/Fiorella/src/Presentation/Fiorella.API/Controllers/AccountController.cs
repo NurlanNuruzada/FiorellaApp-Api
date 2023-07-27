@@ -7,11 +7,11 @@ namespace Fiorella.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AcountController : ControllerBase
+    public class AccountController : ControllerBase
     {
         private readonly IAuthService _authService;
 
-        public AcountController(IAuthService authService)
+        public AccountController(IAuthService authService)
         {
             _authService = authService;
         }
