@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Fiorella.Infrastucture;
 using System.Globalization;
+
 using Azure.Storage.Blobs;
 using Fiorella.Aplication.Abstraction.Services;
 using Fiorella.Persistence.Inplementations.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -34,7 +36,6 @@ builder.Services.AddScoped(_ =>
 });
 
 builder.Services.AddScoped<IFileService, FileService>();
-
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
