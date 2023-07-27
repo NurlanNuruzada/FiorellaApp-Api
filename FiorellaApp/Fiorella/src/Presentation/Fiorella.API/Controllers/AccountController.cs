@@ -3,24 +3,30 @@ using Fiorella.Aplication.DTOs.AuthDTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Fiorella.API.Controllers
+namespace Fiorella.API.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class AccountController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AccountController : ControllerBase
+    private readonly IAuthService _authService;
+
+    public AccountController(IAuthService authService)
     {
-        private readonly IAuthService _authService;
-
-        public AccountController(IAuthService authService)
-        {
-            _authService = authService;
-        }
-
-        [HttpPost("[Action]")]
-        public async Task<IActionResult> Login(SingInDto loginDto)
-        {
-           var Response = await _authService.Login(loginDto);
-            return Ok(Response);    
-        }
+        _authService = authService;
     }
+
+    [HttpPost("[Action]")]
+    public async Task<IActionResult> Login(SingInDto loginDto)
+    {
+       var Response = await _authService.Login(loginDto);
+        return Ok(Response);    
+    }
+    [HttpGet("[action]")]
+    public async Task<IActionResult> RefreshToken([FromQuery]string token)
+    {
+        var response = await _authService.ValidateRefreshToken(token);
+        return Ok(response);
+    }
+
 }

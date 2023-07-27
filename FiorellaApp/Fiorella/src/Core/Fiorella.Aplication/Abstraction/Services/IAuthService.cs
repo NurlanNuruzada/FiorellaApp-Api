@@ -7,4 +7,6 @@ public interface IAuthService
 {
     Task register(RegisterDto registerDto);
     Task<TokenResponseDto> Login(SingInDto loginDto);
+    Task<TokenResponseDto> ValidateRefreshToken(string refreshToken);
+
 }
