@@ -6,6 +6,11 @@ using Microsoft.IdentityModel.Tokens;
 using Fiorella.Infrastucture;
 using System.Globalization;
 
+using Azure.Storage.Blobs;
+using Fiorella.Aplication.Abstraction.Services;
+using Fiorella.Persistence.Inplementations.Services;
+
+
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
@@ -25,7 +30,12 @@ localizationOptions.SetDefaultCulture("en-US");
 builder.Services.AddPersistanceServices();
 builder.Services.AddInfrastuctureServices();
 builder.Services.AddScoped<AppDbContextInitializer>();
+builder.Services.AddScoped(_ =>
+{
+    return new BlobServiceClient(builder.Configuration["ConnetionStringAzure:AzureBlobStorage"]);
+});
 
+builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -61,7 +71,6 @@ using (var scope = app.Services.CreateScope())
     await instance.RoleSeedAsync();
     await instance.UserSeedAsync();
 }
-
 app.UseCustomExceptionHandler();
 if (app.Environment.IsDevelopment())
 {

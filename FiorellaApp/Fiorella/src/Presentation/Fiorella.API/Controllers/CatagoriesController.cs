@@ -12,7 +12,7 @@ namespace Fiorella.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class CatagoriesController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
