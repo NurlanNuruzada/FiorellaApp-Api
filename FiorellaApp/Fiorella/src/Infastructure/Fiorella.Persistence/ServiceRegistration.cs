@@ -11,7 +11,6 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 namespace Fiorella.Persistence;
 public static class ServiceRegistration
@@ -32,7 +31,8 @@ public static class ServiceRegistration
             options.Password.RequireUppercase = true;
         })
         .AddDefaultTokenProviders()
-        .AddEntityFrameworkStores<AppDbContext>();
+        .AddEntityFrameworkStores<AppDbContext>()
+          .AddRoleManager<IdentityRole>();
 
         // fluent valudation
         services.AddFluentValidationAutoValidation();
