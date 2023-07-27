@@ -18,12 +18,12 @@ public class AuthService : IAuthService
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly SignInManager<AppUser> _signInManager;
-    private readonly RoleManager<IdentityUser> _roleManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
     private readonly IConfiguration _configuration;
 
     public AuthService(UserManager<AppUser> userManager,
                        SignInManager<AppUser> signInManager,
-                       RoleManager<IdentityUser> roleManager,
+                       RoleManager<IdentityRole> roleManager,
                        IConfiguration configuration)
     {
         _userManager = userManager;

@@ -57,7 +57,7 @@ public class CategoryService : ICategoryService
     }
     public async Task Remove(Guid id) 
     {
-        Category foundCategory = await _readRepository.GetByIdAsync(id);
+        Category? foundCategory = await _readRepository.GetByIdAsync(id);
         if (foundCategory is null)
         {
             throw new NotFoundException("Not found!!!");

@@ -21,7 +21,7 @@ public static class ServiceRegistration
         {
             options.UseSqlServer(Configuration.ConnetionString);
         });
-
+        //AppUser
         services.AddIdentity<AppUser, IdentityRole>(options =>
         {
             options.User.RequireUniqueEmail = true;
@@ -31,13 +31,14 @@ public static class ServiceRegistration
             options.Password.RequireUppercase = true;
         })
         .AddDefaultTokenProviders()
-        .AddEntityFrameworkStores<AppDbContext>()
-          .AddRoleManager<IdentityRole>();
+        .AddEntityFrameworkStores<AppDbContext>();
 
         // fluent valudation
         services.AddFluentValidationAutoValidation();
         services.AddFluentValidationClientsideAdapters();
         services.AddValidatorsFromAssemblyContaining(typeof(CategoryCreateDtoValudator));
+
+        //mapper
         services.AddAutoMapper(typeof(CategoryProfile).Assembly);
 
         //repositories
