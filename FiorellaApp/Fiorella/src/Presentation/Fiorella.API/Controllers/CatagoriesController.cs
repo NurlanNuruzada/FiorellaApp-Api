@@ -3,6 +3,7 @@ using Fiorella.Aplication.DTOs.CategoryDTOs;
 using Fiorella.Domain.Entities;
 using Fiorella.Persistence.Exceptions;
 using Fiorella.Persistence.Inplementations.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -11,7 +12,7 @@ namespace Fiorella.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
+    [Authorize]
     public class CatagoriesController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
@@ -20,7 +21,7 @@ namespace Fiorella.API.Controllers
             _categoryService = categoryService;
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> get(Guid id)
         {
 
@@ -28,7 +29,7 @@ namespace Fiorella.API.Controllers
             return Ok(category);
 
         }
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> delete(Guid id)
         {
             await _categoryService.Remove(id);
@@ -46,7 +47,7 @@ namespace Fiorella.API.Controllers
                 List<CategoryGetDto> List = await _categoryService.GetAllAsync();
                 return Ok(List);
         }
-        [HttpPut("id")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCategory([FromBody] CategoryUpdateDto categoryUpdateDto, Guid id)
         {
             await _categoryService.UpdateAsync(categoryUpdateDto, id);

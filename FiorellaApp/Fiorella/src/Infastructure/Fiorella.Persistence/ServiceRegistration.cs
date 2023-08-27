@@ -11,7 +11,6 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 namespace Fiorella.Persistence;
 public static class ServiceRegistration
@@ -22,7 +21,7 @@ public static class ServiceRegistration
         {
             options.UseSqlServer(Configuration.ConnetionString);
         });
-
+        //AppUser
         services.AddIdentity<AppUser, IdentityRole>(options =>
         {
             options.User.RequireUniqueEmail = true;
@@ -38,13 +37,18 @@ public static class ServiceRegistration
         services.AddFluentValidationAutoValidation();
         services.AddFluentValidationClientsideAdapters();
         services.AddValidatorsFromAssemblyContaining(typeof(CategoryCreateDtoValudator));
+
+        //mapper
         services.AddAutoMapper(typeof(CategoryProfile).Assembly);
 
         //repositories
         services.AddReadARepositories();
         services.AddWriteARepositories();
 
+        //services
         services.AddScoped<ICategoryService, CategoryService>();
+        services.AddScoped<IAuthService, AuthService>();
+
     }
     private static void AddReadARepositories(this IServiceCollection services)
     {

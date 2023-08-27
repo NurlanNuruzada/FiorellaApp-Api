@@ -4,7 +4,9 @@ using Fiorella.Aplication.Abstraction.Services;
 using Fiorella.Aplication.DTOs.CategoryDTOs;
 using Fiorella.Domain.Entities;
 using Fiorella.Persistence.Exceptions;
+using Fiorella.Persistence.Resources;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 
 namespace Fiorella.Persistence.Inplementations.Services;
@@ -14,13 +16,16 @@ public class CategoryService : ICategoryService
     private readonly IMapper _mapper;
 
     private readonly ICategoryWriteRepository _writeRepository;
+    private readonly IStringLocalizer<ErrorMessages> _localizer;
     public CategoryService(ICategoryReadRepository readRepository,
                            ICategoryWriteRepository writeRepository,
-                           IMapper mapper)
+                           IMapper mapper,
+                           IStringLocalizer<ErrorMessages> localizer)
     {
         _readRepository = readRepository;
         _writeRepository = writeRepository;
         _mapper = mapper;
+        _localizer = localizer;
     }
 
     public async Task CreateAsync(CategoryCreateDto categoryCreateDto)
@@ -40,9 +45,10 @@ public class CategoryService : ICategoryService
     {
         Category? category = await _readRepository.GetByIdAsync(id);
         CategoryGetDto categoryGetDto = _mapper.Map<CategoryGetDto>(category);
+        string message=_localizer.GetString("NotFoundExceptionMsg");
         if (category is null)
         {
-            throw new NotFoundException("Not found!!!");
+            throw new NotFoundException(message);
         }
         else
         {
@@ -55,10 +61,9 @@ public class CategoryService : ICategoryService
         List<CategoryGetDto> List = _mapper.Map<List<CategoryGetDto>>(categories);
         return List;
     }
-
     public async Task Remove(Guid id) 
     {
-        Category foundCategory = await _readRepository.GetByIdAsync(id);
+        Category? foundCategory = await _readRepository.GetByIdAsync(id);
         if (foundCategory is null)
         {
             throw new NotFoundException("Not found!!!");
@@ -75,7 +80,5 @@ public class CategoryService : ICategoryService
         }
         _mapper.Map(categoryUpdateDto, category);
         await _writeRepository.SaveChangesAsync();
-        //DateTime dateTime = DateTime.Now;
-        //category.DateModified = dateTime;
     }
 }
